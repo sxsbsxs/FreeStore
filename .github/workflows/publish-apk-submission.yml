@@ -22,9 +22,9 @@ jobs:
 
       - name: Publish APK and refresh catalog
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          ISSUE_NUMBER: \${{ github.event.issue.number }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: python3 scripts/publish_submission.py
 
       - name: Report publishing failure
