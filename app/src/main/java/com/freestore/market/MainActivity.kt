@@ -235,6 +235,11 @@ private fun StoreScreen(
                     }
                 },
                 actions = {
+                    TextButton(onClick = {
+                        val submitUri = Uri.parse("https://sxsbsxs.github.io/FreeStore/?submit=1")
+                        runCatching { startActivity(Intent(Intent.ACTION_VIEW, submitUri)) }
+                            .onFailure { error = "无法打开投稿页面：${it.localizedMessage}" }
+                    }) { Text("提交 APK") }
                     TextButton(onClick = { refreshKey++ }) {
                         androidx.compose.material3.Icon(
                             Icons.Default.Refresh,
@@ -293,7 +298,7 @@ private fun StoreScreen(
                 )
                 apps.isEmpty() -> EmptyState(
                     title = "应用市场已就绪",
-                    message = "这里还没有上架应用。向 catalog/sources.json 添加 GitHub 仓库，并发布包含 APK 的 Release，即可自动收录。",
+                    message = "这里还没有上架应用。点击顶部「提交 APK」即可提交应用，审核通过后自动上架；也可通过公开 GitHub Release 收录。",
                     action = "刷新目录",
                     onAction = { refreshKey++ }
                 )
