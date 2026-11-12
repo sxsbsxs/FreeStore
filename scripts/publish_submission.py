@@ -61,6 +61,33 @@ def validate_apk(path: Path) -> None:
     except zipfile.BadZipFile as exc:
         fail(f"APK 文件损坏：{exc}")
 
+
+def verify_android_package(path: Path, expected_package: str, expected_version: str) -> None:
+    sdk_root = Path(os.environ.get("ANDROID_HOME", "/usr/local/lib/android/sdk"))
+    candidates = sorted((sdk_root / "build-tools").glob("*/aapt"), reverse=True)
+    signers = sorted((sdk_root / "build-tools").glob("*/apksigner"), reverse=True)
+    if not candidates or not signers:
+        fail("审核 runner 缺少 Android Build Tools，无法检查 APK 包名和签名。")
+    aapt = candidates[0]
+    apksigner = signers[0]
+
+    # Require an installable APK signed by its publisher.
+    run([str(apksigner), "verify", "--verbose", str(path)])
+
+    badging = run([str(aapt), "dump", "badging", str(path)], capture=True)
+    match = re.search(
+        r"^package: name='([^']+)'[^\\r\\n]*?versionName='([^']*)'",
+        badging,
+        flags=re.MULTILINE,
+    )
+    if not match:
+        fail("无法从 APK Android Manifest 读取包名和版本信息。")
+    actual_package, actual_version = match.groups()
+    if actual_package != expected_package:
+        fail(f"填写的包名 {expected_package} 与 APK 实际包名 {actual_package} 不一致。")
+    if actual_version and actual_version != expected_version:
+        fail(f"填写版本 {expected_version} 与 APK 内部版本 {actual_version} 不一致。")
+
 def main() -> int:
     event_path = Path(os.environ["GITHUB_EVENT_PATH"])
     event = json.loads(event_path.read_text(encoding="utf-8"))
@@ -103,6 +130,7 @@ def main() -> int:
         "--proto-redir", "=https", attachment_url, "--output", str(download_path)
     ], check=True)
     validate_apk(download_path)
+    verify_android_package(download_path, package, version)
     download_path.replace(apk_path)
 
     digest = hashlib.sha256(apk_path.read_bytes()).hexdigest()
