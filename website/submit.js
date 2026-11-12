@@ -25,6 +25,8 @@
     if (event.target === dialog) dialog.close();
   });
 
+  if (new URLSearchParams(window.location.search).get("submit") === "1") showDialog();
+
   fileInput.addEventListener("change", () => {
     const file = fileInput.files && fileInput.files[0];
     fileName.textContent = file
