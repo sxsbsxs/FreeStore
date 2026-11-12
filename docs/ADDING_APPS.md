@@ -18,7 +18,7 @@ FreeStore 支持两种上架方式：网页直接投稿（适合 25 MB 以内的
 
 在本仓库编辑 catalog/sources.json，添加仓库：
 
-\`\`\`json
+```json
 {
   "schema_version": 1,
   "repositories": [
@@ -29,7 +29,7 @@ FreeStore 支持两种上架方式：网页直接投稿（适合 25 MB 以内的
     }
   ]
 }
-\`\`\`
+```
 
 repository 必须是公开 GitHub 仓库的 owner/name。分类和精选标记是可选项。
 
@@ -41,7 +41,7 @@ repository 必须是公开 GitHub 仓库的 owner/name。分类和精选标记�
 
 在应用仓库根目录添加 freestore.json：
 
-\`\`\`json
+```json
 {
   "name": "应用名称",
   "description": "应用简介",
@@ -51,7 +51,7 @@ repository 必须是公开 GitHub 仓库的 owner/name。分类和精选标记�
   "screenshots": [],
   "featured": false
 }
-\`\`\`
+```
 
 没有清单时，FreeStore 使用 GitHub 仓库名称、简介和仓库所有者头像作为默认信息。
 
