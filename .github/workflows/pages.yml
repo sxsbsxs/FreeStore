@@ -8,6 +8,10 @@ on:
       - "catalog/apps.json"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Refresh app catalog"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
@@ -20,6 +24,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -35,6 +40,8 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
