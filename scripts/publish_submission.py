@@ -75,11 +75,8 @@ def verify_android_package(path: Path, expected_package: str, expected_version: 
     run([str(apksigner), "verify", "--verbose", str(path)])
 
     badging = run([str(aapt), "dump", "badging", str(path)], capture=True)
-    match = re.search(
-        r"^package: name='([^']+)'[^\\r\\n]*?versionName='([^']*)'",
-        badging,
-        flags=re.MULTILINE,
-    )
+    package_line = next((line for line in badging.splitlines() if line.startswith("package: ")), "")
+    match = re.search(r"package: name='([^']+)'.*versionName='([^']*)'", package_line)
     if not match:
         fail("无法从 APK Android Manifest 读取包名和版本信息。")
     actual_package, actual_version = match.groups()
