@@ -15,7 +15,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMUNITY_FILE = ROOT / "catalog" / "community-apps.json"
-MAX_BYTES = 25 * 1024 * 1024
+MAX_BYTES = 25 * 1000 * 1000
 
 def fail(message: str) -> None:
     raise RuntimeError(message)
