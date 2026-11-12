@@ -111,7 +111,6 @@
     window.setTimeout(() => URL.revokeObjectURL(objectUrl), 60_000);
 
     const issueUrl = new URL("https://github.com/sxsbsxs/FreeStore/issues/new");
-    issueUrl.searchParams.set("template", "apk-submission.md");
     issueUrl.searchParams.set("title", "[FreeStore APK] " + name + " " + version);
     issueUrl.searchParams.set("body", payload);
 
