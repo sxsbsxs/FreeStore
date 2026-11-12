@@ -36,11 +36,11 @@ Public publisher repositories with a stable Release and reviewed community APK s
 
 The web store includes a **Submit app** form. A submitter selects an APK (up to 25 MB), fills in its metadata, and is guided to create a GitHub Issue with the APK attached. The browser creates a renamed copy of the APK with a .zip filename because GitHub's public issue attachment uploader supports ZIP files; the APK bytes are not recompressed or modified.
 
-New submissions enter a moderation queue. A maintainer reviews the metadata and APK, then applies the **approved** label. GitHub Actions validates the APK archive, publishes it as an asset in a FreeStore GitHub Release, updates the community catalog, and triggers the Pages deployment. The web form never contains or receives a maintainer token.
+New submissions enter a moderation queue. A maintainer reviews the metadata and APK, then applies the **approved** label. GitHub Actions validates the APK archive, verifies its Android package name and signing integrity, publishes it as an asset in a FreeStore GitHub Release, updates the community catalog, and triggers the Pages deployment. The web form never contains or receives a maintainer token.
 
 **Important limits:** submitters must sign in to GitHub to create the Issue and attach the file. GitHub public issue attachments are limited to 25 MB per file. Larger APKs must use the existing publisher-owned public GitHub Release workflow. Browsing and downloading from the store do not require a GitHub account.
 
-The project still has no self-hosted server, VPS, database, or paid backend. APK submissions are public once attached to a public issue. FreeStore performs basic APK/archive validation and human moderation, not a malware security audit.
+The project still has no self-hosted server, VPS, database, or paid backend. APK submissions are public once attached to a public issue. FreeStore checks APK structure, Android package name, version and signing integrity, with human moderation; this is not a malware scan or security audit.
 
 ## Android build
 
