@@ -214,7 +214,7 @@
       const message = document.createElement("p");
       message.textContent = apps.length
         ? "换个关键词试试，或者选择其他分类。"
-        : "目前还没有收录应用。维护者将 GitHub 仓库加入 catalog/sources.json，并在该仓库的 Release 中上传 APK 后，应用会自动出现在这里。";
+        : "目前还没有收录应用。点击右上角「提交应用」上传 APK，或通过公开 GitHub Release 投稿。投稿需要登录 GitHub，审核通过后会自动上架。";
       empty.append(heading, message);
       grid.append(empty);
       return;
