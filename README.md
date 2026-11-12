@@ -5,7 +5,7 @@
 - Android app: Kotlin + Jetpack Compose
 - Web store: static HTML, CSS and JavaScript
 - Catalog: JSON generated from public GitHub repositories and Releases
-- APK hosting: each publisher's own GitHub Release assets
+- APK hosting: publisher GitHub Releases plus reviewed community submissions
 - Automation: GitHub Actions builds Android, refreshes the catalog and deploys GitHub Pages
 
 ## Repository layout
@@ -15,7 +15,10 @@ app/                        Android application
 website/                    Static web marketplace
 catalog/sources.json        Approved GitHub repositories to index
 catalog/apps.json           Generated app catalog
-scripts/build_catalog.py    Reads GitHub Releases and builds the catalog
+catalog/community-apps.json  Reviewed community submissions
+scripts/build_catalog.py    Reads publisher GitHub Releases
+scripts/merge_community_catalog.py  Merges reviewed community APKs
+scripts/publish_submission.py  Publishes approved APK submissions
 .github/workflows/          Android build, catalog refresh, Pages and Release workflows
 docs/                       Setup and publishing guides
 ```
@@ -27,7 +30,17 @@ docs/                       Setup and publishing guides
 3. Optionally add `freestore.json` to the app repository to customize its name, description, category and icon.
 4. The catalog workflow refreshes automatically every six hours. You can also run it from **Actions → Refresh app catalog → Run workflow**.
 
-Only public repositories with a latest stable Release containing an APK asset are indexed. APK files remain hosted by the app developers on GitHub.
+Public publisher repositories with a stable Release and reviewed community APK submissions are indexed. APKs are distributed directly from GitHub Release assets.
+
+## Community APK submissions
+
+The web store includes a **Submit app** form. A submitter selects an APK (up to 25 MB), fills in its metadata, and is guided to create a GitHub Issue with the APK attached. The browser creates a renamed copy of the APK with a .zip filename because GitHub's public issue attachment uploader supports ZIP files; the APK bytes are not recompressed or modified.
+
+New submissions enter a moderation queue. A maintainer reviews the metadata and APK, then applies the **approved** label. GitHub Actions validates the APK archive, publishes it as an asset in a FreeStore GitHub Release, updates the community catalog, and triggers the Pages deployment. The web form never contains or receives a maintainer token.
+
+**Important limits:** submitters must sign in to GitHub to create the Issue and attach the file. GitHub public issue attachments are limited to 25 MB per file. Larger APKs must use the existing publisher-owned public GitHub Release workflow. Browsing and downloading from the store do not require a GitHub account.
+
+The project still has no self-hosted server, VPS, database, or paid backend. APK submissions are public once attached to a public issue. FreeStore performs basic APK/archive validation and human moderation, not a malware security audit.
 
 ## Android build
 
