@@ -73,7 +73,15 @@ class MainActivity : ComponentActivity() {
             FreeStoreTheme {
                 StoreScreen(
                     onDownload = ::downloadApp,
-                    onInstall = ::installApp
+                    onInstall = ::installApp,
+                    onSubmit = {
+                        val submitUri = Uri.parse("https://sxsbsxs.github.io/FreeStore/?submit=1")
+                        runCatching {
+                            this@MainActivity.startActivity(Intent(Intent.ACTION_VIEW, submitUri))
+                        }.onFailure {
+                            toast("无法打开投稿页面：${it.localizedMessage ?: "未知错误"}")
+                        }
+                    }
                 )
             }
         }
@@ -189,7 +197,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun StoreScreen(
     onDownload: (StoreApp) -> Unit,
-    onInstall: (StoreApp) -> Unit
+    onInstall: (StoreApp) -> Unit,
+    onSubmit: () -> Unit
 ) {
     var apps by remember { mutableStateOf<List<StoreApp>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
@@ -235,11 +244,7 @@ private fun StoreScreen(
                     }
                 },
                 actions = {
-                    TextButton(onClick = {
-                        val submitUri = Uri.parse("https://sxsbsxs.github.io/FreeStore/?submit=1")
-                        runCatching { startActivity(Intent(Intent.ACTION_VIEW, submitUri)) }
-                            .onFailure { error = "无法打开投稿页面：${it.localizedMessage}" }
-                    }) { Text("提交 APK") }
+                    TextButton(onClick = onSubmit) { Text("提交 APK") }
                     TextButton(onClick = { refreshKey++ }) {
                         androidx.compose.material3.Icon(
                             Icons.Default.Refresh,
