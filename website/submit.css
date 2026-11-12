@@ -1,0 +1,59 @@
+
+.submit-link {
+  color: #fff !important;
+  background: #111;
+  border-radius: 999px;
+  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.submit-dialog {
+  position: relative;
+  width: min(620px, calc(100% - 28px));
+  max-height: min(88vh, 820px);
+  overflow: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 24px;
+  padding: 32px;
+  color: #111;
+  background: #fff;
+  box-shadow: 0 30px 100px #0003;
+}
+.submit-dialog::backdrop { background: #0008; backdrop-filter: blur(4px); }
+.submit-dialog h2 { margin: 0; font-size: 28px; }
+.submit-intro { color: #777; font-size: 12px; line-height: 1.75; margin: 12px 28px 23px 0; }
+#submit-form { display: flex; flex-direction: column; gap: 14px; }
+.submit-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.submit-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.submit-field > span { color: #444; font-size: 11px; font-weight: 700; }
+.submit-field input,
+.submit-field select,
+.submit-field textarea {
+  width: 100%;
+  min-height: 43px;
+  border: 1px solid #e5e5e5;
+  border-radius: 11px;
+  background: #fff;
+  color: #111;
+  padding: 10px 12px;
+  outline: none;
+  font-size: 12px;
+}
+.submit-field textarea { resize: vertical; line-height: 1.6; }
+.submit-field input:focus,
+.submit-field select:focus,
+.submit-field textarea:focus { border-color: #777; box-shadow: 0 0 0 3px #1111110b; }
+.submit-field input[type="file"] { padding: 8px; }
+.submit-field small { color: #888; font-size: 10px; }
+.submit-limit { padding: 13px 15px; background: #f6f6f6; border-radius: 12px; }
+.submit-limit strong { display: block; font-size: 11px; }
+.submit-limit p { color: #777; font-size: 10px; line-height: 1.7; margin: 5px 0 0; }
+.submit-status { color: #555; font-size: 11px; line-height: 1.7; overflow-wrap: anywhere; }
+.submit-fallback { display: inline-block; margin-top: 5px; text-decoration: underline; }
+.submit-button { border: 0; cursor: pointer; min-height: 44px; }
+@media (max-width: 600px) {
+  .topnav { gap: 10px; }
+  .submit-link { padding: 9px 11px; font-size: 10px; }
+  .submit-dialog { padding: 25px 20px; }
+  .submit-fields-row { grid-template-columns: 1fr; }
+}
