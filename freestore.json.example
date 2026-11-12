@@ -1,0 +1,9 @@
+{
+  "name": "Example App",
+  "description": "A short description for the FreeStore listing.",
+  "category": "工具",
+  "package_name": "com.example.app",
+  "icon_url": "https://example.com/icon.png",
+  "screenshots": [],
+  "featured": false
+}

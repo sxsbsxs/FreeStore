@@ -1,0 +1,12 @@
+{
+  "name": "FreeStore",
+  "short_name": "FreeStore",
+  "description": "GitHub 驱动的免费开源应用市场",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

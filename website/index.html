@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="FreeStore — 一个由 GitHub 驱动的免费开源应用市场。">
+  <title>FreeStore — 自由应用市场</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="FreeStore 首页">
+      <span class="brand-mark">F</span>
+      <span>FreeStore</span>
+    </a>
+    <nav class="topnav" aria-label="主导航">
+      <a class="active" href="./">发现应用</a>
+      <a href="https://github.com/sxsbsxs/FreeStore" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">OPEN · FREE · COMMUNITY DRIVEN</p>
+        <h1>找到值得安装的<br><span>开源应用。</span></h1>
+        <p class="hero-text">一个由 GitHub Releases 驱动的轻量应用市场。无需账号，不收集个人资料，也不需要中心化服务器。</p>
+        <div class="hero-meta">
+          <span><i></i> 开源目录</span>
+          <span><i></i> 直接下载 APK</span>
+          <span><i></i> 社区维护</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="hero-tile tile-back">APK</div>
+        <div class="hero-tile tile-front">F<span>+</span></div>
+        <div class="hero-dot dot-one"></div>
+        <div class="hero-dot dot-two"></div>
+      </div>
+    </section>
+
+    <section class="store-section" aria-labelledby="discover-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">THE COLLECTION</p>
+          <h2 id="discover-title">探索应用</h2>
+        </div>
+        <div class="catalog-count" id="catalog-count">正在读取目录…</div>
+      </div>
+
+      <div class="toolbar">
+        <label class="searchbox">
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="搜索应用、介绍或开发者…" autocomplete="off">
+          <kbd>⌘ K</kbd>
+        </label>
+        <select id="sort-select" aria-label="排序方式">
+          <option value="featured">精选优先</option>
+          <option value="name">名称排序</option>
+          <option value="recent">最近更新</option>
+          <option value="downloads">下载量</option>
+        </select>
+      </div>
+
+      <div class="category-list" id="category-list" aria-label="应用分类"></div>
+      <div class="app-grid" id="app-grid" aria-live="polite"></div>
+      <div class="notice" id="notice" hidden></div>
+    </section>
+
+    <section class="trust-strip">
+      <div><strong>01</strong><span>目录托管在 GitHub</span></div>
+      <div><strong>02</strong><span>APK 由开发者发布</span></div>
+      <div><strong>03</strong><span>下载前可查看来源</span></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="brand footer-brand" href="./"><span class="brand-mark">F</span><span>FreeStore</span></a>
+    <p>FreeStore 不托管第三方 APK。应用由各自开发者通过 GitHub Releases 发布。</p>
+    <a href="https://github.com/sxsbsxs/FreeStore" target="_blank" rel="noopener noreferrer">查看源代码 ↗</a>
+  </footer>
+
+  <dialog class="detail-dialog" id="app-dialog">
+    <button class="dialog-close" id="dialog-close" aria-label="关闭">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+</body>
+</html>
