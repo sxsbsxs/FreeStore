@@ -9,6 +9,8 @@
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./submit.css">
+  <script src="./submit.js" defer></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -19,6 +21,7 @@
     </a>
     <nav class="topnav" aria-label="主导航">
       <a class="active" href="./">发现应用</a>
+      <a class="submit-link" id="open-submit" href="#submit-app">＋ 提交应用</a>
       <a href="https://github.com/sxsbsxs/FreeStore" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
     </nav>
   </header>
@@ -28,7 +31,7 @@
       <div class="hero-copy">
         <p class="eyebrow">OPEN · FREE · COMMUNITY DRIVEN</p>
         <h1>找到值得安装的<br><span>开源应用。</span></h1>
-        <p class="hero-text">一个由 GitHub Releases 驱动的轻量应用市场。无需账号，不收集个人资料，也不需要中心化服务器。</p>
+        <p class="hero-text">一个由 GitHub 驱动的开源应用市场。浏览和下载无需账号，也欢迎你直接提交 APK。</p>
         <div class="hero-meta">
           <span><i></i> 开源目录</span>
           <span><i></i> 直接下载 APK</span>
@@ -82,13 +85,67 @@
 
   <footer class="footer">
     <a class="brand footer-brand" href="./"><span class="brand-mark">F</span><span>FreeStore</span></a>
-    <p>FreeStore 不托管第三方 APK。应用由各自开发者通过 GitHub Releases 发布。</p>
+    <p>FreeStore 使用 GitHub 托管 APK 和投稿审核，不运行自建服务器。</p>
     <a href="https://github.com/sxsbsxs/FreeStore" target="_blank" rel="noopener noreferrer">查看源代码 ↗</a>
   </footer>
 
   <dialog class="detail-dialog" id="app-dialog">
     <button class="dialog-close" id="dialog-close" aria-label="关闭">×</button>
     <div id="dialog-content"></div>
+  </dialog>
+
+  <dialog class="submit-dialog" id="submit-dialog" aria-labelledby="submit-title">
+    <button class="dialog-close" id="submit-close" type="button" aria-label="关闭">×</button>
+    <p class="eyebrow">COMMUNITY SUBMISSION</p>
+    <h2 id="submit-title">提交一个应用</h2>
+    <p class="submit-intro">选择 APK 并填写基本资料。提交后会进入人工审核，审核通过才会公开上架。</p>
+    <form id="submit-form">
+      <label class="submit-field">
+        <span>应用名称</span>
+        <input name="name" type="text" maxlength="80" placeholder="例如：My App" required>
+      </label>
+      <div class="submit-fields-row">
+        <label class="submit-field">
+          <span>版本号</span>
+          <input name="version" type="text" value="1.0.0" pattern="[0-9A-Za-z][0-9A-Za-z.+_-]{0,63}" required>
+        </label>
+        <label class="submit-field">
+          <span>Android 包名</span>
+          <input name="package" type="text" placeholder="com.example.app" required>
+        </label>
+      </div>
+      <label class="submit-field">
+        <span>应用分类</span>
+        <select name="category" required>
+          <option value="开发工具">开发工具</option>
+          <option value="效率">效率</option>
+          <option value="影音娱乐">影音娱乐</option>
+          <option value="系统工具">系统工具</option>
+          <option value="网络">网络</option>
+          <option value="游戏">游戏</option>
+          <option value="其他" selected>其他</option>
+        </select>
+      </label>
+      <label class="submit-field">
+        <span>应用简介</span>
+        <textarea name="description" rows="3" maxlength="1000" placeholder="介绍应用的用途和主要功能" required></textarea>
+      </label>
+      <label class="submit-field">
+        <span>项目主页 / GitHub 仓库（可选）</span>
+        <input name="project-url" type="url" placeholder="https://github.com/owner/project">
+      </label>
+      <label class="submit-field">
+        <span>选择 APK 文件</span>
+        <input id="apk-file" name="apk" type="file" accept=".apk,application/vnd.android.package-archive" required>
+        <small id="apk-file-name">尚未选择 APK 文件</small>
+      </label>
+      <div class="submit-limit">
+        <strong>上传限制：25 MB</strong>
+        <p>继续后会先下载一个 ZIP 文件副本，再打开 GitHub 投稿页。你需要在 GitHub 页面把该文件作为附件添加并提交。需要登录 GitHub。</p>
+      </div>
+      <div class="submit-status" id="submit-status" role="status" aria-live="polite"></div>
+      <button class="action-button submit-button" type="submit">继续提交 ↗</button>
+    </form>
   </dialog>
 </body>
 </html>
